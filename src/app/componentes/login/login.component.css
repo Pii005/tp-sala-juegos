@@ -1,0 +1,78 @@
+.formulario {
+    overflow: hidden;
+        font-family: Arial, sans-serif;
+        /* background-color: #f0f0f0; */
+        background: #373B44;  /* fallback for old browsers */
+        background: -webkit-linear-gradient(to right, #4286f4, #373B44);  /* Chrome 10-25, Safari 5.1-6 */
+        background: linear-gradient(to right, #4286f4, #373B44); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0;
+    }
+    .login-container {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 80%; 
+        max-width: 600px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .login-text {
+        flex: 1;
+        text-align: left;
+        padding-right: 40px;
+    }
+    h2 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+    .login-form {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+    }
+    .input-field {
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
+    .btn {
+        padding: 12px;
+
+        background-color: #4079d5;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+    }
+    .btn:hover {
+        background-color: #2f60ae;
+    }
+
+    .btn-regis{
+            padding: 10px;
+            width: 45%; /* Botón más pequeño */
+            background-color: #759ad7;
+            align-self: center; /* Centrar el botón */
+            border: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            margin-left: 10px;
+            /* margin: 10px auto 0 auto; */
+            margin-right: 0;
+            margin-top: 10px;
+            /* margin-left: 10px;  */
+    }
+
+    .error-message{
+        color: red;
+    }

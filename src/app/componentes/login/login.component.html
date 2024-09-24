@@ -1,0 +1,19 @@
+
+
+<div class="formulario">
+    <div class="login-container">
+        <form  #loginForm="ngForm">
+            <h2>Iniciar Sesión</h2>
+            <input [(ngModel)]="newEmail" class="input-field" type="text" name="username" placeholder="Email" required>
+            <input [(ngModel)]="newContrase" class="input-field" type="password" name="password" placeholder="Contraseña" required>
+            <div *ngIf="flagError" class="error-message">{{ msgError }}</div>
+            <button (click)="Login()" type="submit" class="btn btn-sumit">Ingresar</button>
+            <button (click)="goTo('register')"  class="btn btn-regis">Registrarse</button>
+            <button (click)="goTo('home')" class="btn btn-regis">Volver</button>
+
+        </form>
+        <!-- <p {{ msgError }}></p> -->
+    </div>
+</div>
+
+<router-outlet />
