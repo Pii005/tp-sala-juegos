@@ -1,21 +1,3 @@
-<!-- <p>register works!</p> -->
-
-<!-- 
-<div class="formulario">
-    <div class="login-container">
-        <form [formGroup]="form" (ngSubmit)="enviarForm()">
-            <h2>Registrarse</h2>
-            <input formControlName="email" class="input-field" type="text" placeholder="Email" required>
-            <input formControlName="contrasenia" class="input-field" type="password" placeholder="Contraseña" required>
-            <div *ngIf="flagError" class="error-message">{{ msgError }}</div>
-            <button type="submit" class="btn btn-sumit">Registrar</button>
-            <button (click)="goTo('login')" class="btn btn-regis">Volver</button>
-        </form>
-        <!-- <p {{ msgError }}></p> -->
-    <!-- </div>
-</div>
-
-<router-outlet /> --> 
 
 <div class="formulario">
     <div class="login-container">
@@ -38,11 +20,11 @@
                     <span *ngIf="contra.errors['minlength']">La contraseña debe tener al menos 6 caracteres.</span>
                 </div>
             </div>
-            <div class="error-message" *ngIf="flagError">{{ msgError }}</div>
+            <!-- <div class="error-message" *ngIf="flagError">{{ msgError }}</div> -->
 
             <div class="button-container">
-                <button class="btn btn-regis" type="submit">Registrar</button>
-                <button (click)="goTo('login')" class="btn btn-regis">Volver</button>
+                <button class="btn btn-regis" type="submit" type="button">Registrar</button>
+                <button (click)="goTo('auth/login')" class="btn btn-regis" type="button">Volver</button>
             </div>
         </form>
         <!-- <p {{ msgError }}></p> -->

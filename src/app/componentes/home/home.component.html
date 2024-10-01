@@ -14,21 +14,43 @@
                     <a class="nav-link active" (click)="goTo('home')" aria-current="page">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" (click)="goTo('login')" [hidden]="ocultarInicio">Ingresar</a>
+                    <a class="nav-link" aria-current="page" (click)="goTo('/auth/login')" [hidden]="ocultarInicio">Ingresar</a>
+                </li>
+                
+                <li class="nav-item" >
+                    <div [hidden]="ocultarBotones">
+                        <a class="nav-link active"  (click)="goTo('')">Chat</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div [hidden]="ocultarBotones">
+                        <a class="nav-link active"  (click)="goTo('')">Rankin</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <div [hidden]="ocultarBotones">
+                        <a class="nav-link active"  (click)="goTo('')">Encuesta</a>
+                    </div>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" (click)="goTo('quien-soy')">¿Quien soy?</a>
                 </li>
             </ul>
-            <div class="d-flex ms-auto"  role="search">
+            <div class="d-flex ms-auto nav-item"  role="search">
                 <button (click)="logouo()" class="btn btn-danger" [hidden]="ocultarBotones">Cerrar</button>
             </div>
         </div>
     </div>
 </nav>
 
+
 <div class="content-with-bg">
     <div class="container text-center">
+        <div class="card" [hidden]="ocultarBotones">
+            <div class="card-body">
+                Bienvenido {{ email }} !! Comenzamos a jugar!!
+            </div>
+        </div>
         <div class="row">
             <div class="col-6 col-sm-3 mb-4">
                 <div class="card" style="width: 18rem;">

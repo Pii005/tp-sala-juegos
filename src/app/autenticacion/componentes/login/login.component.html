@@ -1,0 +1,45 @@
+
+<div class="formulario"> 
+    <div class="login-container">
+        <form [formGroup]="form" (ngSubmit)="enviarForm()"> 
+            <h2>Iniciar sesion</h2>
+            <div class="ingresos">
+                <label for="email">Email</label>
+                <input type="email" formControlName="email" class="input-field">
+            
+                <ng-container *ngIf="email?.invalid && email?.touched">
+                    <small class="text-danger" *ngIf="email?.hasError('required')">El email es requerido</small>
+                    <small class="text-danger" *ngIf="email?.hasError('email')">Formato incorrecto</small>
+                </ng-container>
+
+                <ng-container *ngIf="email?.hasError('emailNotExists') && email?.touched">
+                    <small class="text-danger">El email no está registrado</small>
+                </ng-container>
+            </div>
+            
+            <div class="ingresos">
+                <label for="contra">Contraseña</label>
+                <input type="password" formControlName="contra" class="input-field">
+            
+                <!-- Validación para la contraseña -->
+                <ng-container *ngIf="contra?.invalid && contra?.touched">
+                <small class="text-danger" *ngIf="contra?.hasError('required')">La contraseña es requerida</small>
+                <small class="text-danger" *ngIf="contra?.hasError('minlength')">Mínimo {{contra?.getError('minlength').requiredLength}} caracteres</small>
+                </ng-container>
+            </div>
+            <div *ngIf="flagError" class="error-message">
+                {{ msgError }} <!-- Mostrar el mensaje de error aquí -->
+            </div>
+            <button  type="submit" class="btn btn-submit">Ingresar</button>
+            
+            <div class="button-container">
+                <button (click)="goTo('auth/register')" type="button" class="btn btn-regis">Registrarse</button>
+                <button (click)="goTo('home')" type="button" class="btn btn-regis">Volver</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+<router-outlet></router-outlet>

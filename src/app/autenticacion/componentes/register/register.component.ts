@@ -6,8 +6,7 @@ import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from
 import { addDoc, collection, collectionData, Firestore } from '@angular/fire/firestore';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserCheckService } from '../../services/user-check.service';
-
+import { UserCheckService } from '../../../services/user-check.service';
 
 
 @Component({

@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
   }
 
   goTo(path: string) {
-    console.log("Redirigiendo...");
+    // console.log("Redirigiendo...");
     this.router.navigate([path]);
   }
 

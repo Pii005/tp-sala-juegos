@@ -6,7 +6,7 @@ import { Router, RouterLink, RouterLinkActive, RouterModule, RouterOutlet  } fro
   standalone: true,
   imports: [RouterOutlet, RouterLink, RouterLinkActive],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   title = 'rutas';
@@ -15,9 +15,4 @@ export class AppComponent {
 
   }
 
-  goTo(path: string) {
-    console.log("Redirigiendo...")
-    this.router.navigate([path]);
-    // Le pasamos el path de donde quiero ir, en este caso uso los nombre de los componentes 
-  }
 }
