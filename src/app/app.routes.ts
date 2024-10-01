@@ -6,6 +6,7 @@ import { AhorcadoGameComponent } from './componentes/ahorcado-game/ahorcado-game
 import { MayormenorComponent } from './componentes/mayormenor/mayormenor.component';
 import { PreguntadosComponent } from './componentes/preguntados/preguntados.component';
 import { RegisterComponent } from './componentes/register/register.component';
+import { OrdenarNumerosComponent } from './componentes/ordenar-numeros/ordenar-numeros.component';
 
 export const routes: Routes = [
     { path: 'home', component: HomeComponent },
@@ -15,6 +16,7 @@ export const routes: Routes = [
     { path: 'ahorcado', component: AhorcadoGameComponent },
     { path: 'mayor-menor', component: MayormenorComponent },
     { path: 'preguntados', component: PreguntadosComponent },
+    { path: 'ordenar', component: OrdenarNumerosComponent},
     { path: '', redirectTo: 'home', pathMatch: "full" },
     { path: '**', component: HomeComponent }
 ];

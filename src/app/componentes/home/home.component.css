@@ -1,0 +1,25 @@
+html, body {
+    overflow: hidden;
+    height: 100%;
+}
+
+.content-with-bg {
+    background-image: url('../../../assets/home.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    padding: 20px 0; /* Ajusta el padding superior e inferior */
+}
+
+.container {
+    margin-top: auto; /* Para evitar demasiado espacio superior */
+    margin-bottom: auto; /* Para evitar demasiado espacio inferior */
+}
+
+.card {
+    margin-bottom: 20px; /* Espaciado entre las tarjetas */
+}

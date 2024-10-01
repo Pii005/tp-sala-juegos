@@ -1,19 +1,51 @@
 <!-- <p>register works!</p> -->
 
+<!-- 
+<div class="formulario">
+    <div class="login-container">
+        <form [formGroup]="form" (ngSubmit)="enviarForm()">
+            <h2>Registrarse</h2>
+            <input formControlName="email" class="input-field" type="text" placeholder="Email" required>
+            <input formControlName="contrasenia" class="input-field" type="password" placeholder="Contraseña" required>
+            <div *ngIf="flagError" class="error-message">{{ msgError }}</div>
+            <button type="submit" class="btn btn-sumit">Registrar</button>
+            <button (click)="goTo('login')" class="btn btn-regis">Volver</button>
+        </form>
+        <!-- <p {{ msgError }}></p> -->
+    <!-- </div>
+</div>
+
+<router-outlet /> --> 
 
 <div class="formulario">
     <div class="login-container">
-        <form  #loginForm="ngForm">
-            <h2>Registrarse</h2>
-            <input [(ngModel)]="newEmail" class="input-field" type="text" name="username" placeholder="Email" required>
-            <input [(ngModel)]="newContrase" class="input-field" type="password" name="password" placeholder="Contraseña" required>
-            <div *ngIf="flagError" class="error-message">{{ msgError }}</div>
-            <button (click)="registarUsuario()" type="submit" class="btn btn-sumit">Ingresar</button>
-            <button (click)="goTo('home')" class="btn btn-regis">Volver</button>
+        <form [formGroup]="form" (ngSubmit)="enviarForm()">
+            <h2>Registro</h2>
+            <div class="ingresos">
+                <label for="email">Email:</label>
+                <input id="email" class="input-field" formControlName="email" />
+                <div class="error-message" *ngIf="email && email.errors && (email.touched || email.dirty)">
+                    <span *ngIf="email.errors['required']">El campo de email es obligatorio.</span>
+                    <span *ngIf="email.errors['email']">Por favor, ingresa un email válido.</span>
+                    <span *ngIf="email.errors['emailExists']">El email ya está en uso.</span>
+                </div>
+            </div>
+            <div class="ingresos">
+                <label for="contrasenia">Contraseña:</label>
+                <input id="contrasenia" class="input-field" type="password" formControlName="contrasenia" />
+                <div class="error-message" *ngIf="contra && contra.errors && (contra.touched || contra.dirty)">
+                    <span *ngIf="contra.errors['required']">El campo de contraseña es obligatorio.</span>
+                    <span *ngIf="contra.errors['minlength']">La contraseña debe tener al menos 6 caracteres.</span>
+                </div>
+            </div>
+            <div class="error-message" *ngIf="flagError">{{ msgError }}</div>
 
+            <div class="button-container">
+                <button class="btn btn-regis" type="submit">Registrar</button>
+                <button (click)="goTo('login')" class="btn btn-regis">Volver</button>
+            </div>
         </form>
         <!-- <p {{ msgError }}></p> -->
     </div>
 </div>
-
 <router-outlet />

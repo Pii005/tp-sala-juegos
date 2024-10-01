@@ -19,9 +19,9 @@
         width: 80%; 
         max-width: 600px; 
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column; /* Cambiar a columna para apilar los elementos */
     }
+
     .login-text {
         flex: 1;
         text-align: left;
@@ -43,18 +43,40 @@
         border-radius: 4px;
         width: 100%;
     }
+
+    .ingresos {
+    width: 100%;
+    margin-bottom: 15px; /* Espacio entre los campos */
+    }
+    .form-control {
+        padding: 12px;
+        margin: 0; /* Sin margen para ocupar todo el ancho */
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        width: 100%;
+    }
     .btn {
         padding: 12px;
-
         background-color: #4079d5;
         color: white;
         border: none;
         border-radius: 4px;
         cursor: pointer;
-        width: 100%;
+        width: 100%; /* Ocupar todo el ancho */
+        margin-bottom: 10px; /* Espacio entre los botones */
     }
     .btn:hover {
         background-color: #2f60ae;
+    }
+
+    .button-container {
+        display: flex; /* Alinear los botones uno al lado del otro */
+        justify-content: space-between; /* Espacio entre los botones */
+    }
+    
+    .btn-regis {
+        width: 48%; /* Ajustar el ancho de los botones */
+        background-color: #759ad7;
     }
 
     .btn-regis{
