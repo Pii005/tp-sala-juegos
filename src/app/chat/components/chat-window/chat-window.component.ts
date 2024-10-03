@@ -1,47 +1,48 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Firestore } from '@angular/fire/firestore';
-import { ChatService } from '../../servicio/chat-service.service';
+import { Component, OnInit } from '@angular/core';
+import { Timestamp } from 'firebase/firestore';
+import { ChatService, Mensaje } from '../../servicio/chat-service.service';
+import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-chat-window',
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css']
 })
-export class ChatWindowComponent {
-  form: FormGroup;
+export class ChatWindowComponent implements OnInit {
+  nuevoMensaje: string = ''; // Mensaje que ingresa el usuario
+  email: string = ''; // Email del usuario
+  mensajes$: Observable<Mensaje[]> = of([]); // Observable para los mensajes
 
-  constructor(private ChatService: ChatService) {
-    this.form = new FormGroup({
-      message: new FormControl('', [Validators.required, Validators.maxLength(50)]) // Máximo 50 caracteres
-    });
+  constructor(private chatService: ChatService) {}
+
+  ngOnInit() {
+    // Obtener el email del usuario guardado en el localStorage
+    this.email = localStorage.getItem('userEmail') || '';
+    // Obtener los mensajes desde el servicio
+    this.mensajes$ = this.chatService.obtenerMensajes(); // Asignar el observable
   }
 
-  enviarMensaje() {
-    if (this.form.valid) {
-      const message = this.form.get('message')?.value;
-      const email = localStorage.getItem('userEmail') || '';
-
-      // Obtén la fecha y hora actual
-      const fecha = new Date();
-      const dia = fecha.getDate();
-      const mes = fecha.getMonth() + 1; // Los meses son 0-11
-      const anio = fecha.getFullYear();
-      const hora = fecha.getHours();
-      const minutos = fecha.getMinutes();
-
+  async enviarMensaje() {
+    if (this.nuevoMensaje.trim()) {
       const mensajeData = {
-        user: email,
-        mensaje: message,
-        fecha: fecha
+        email: this.email,
+        mensaje: this.nuevoMensaje,
+        fechaEnvio: Timestamp.fromDate(new Date()) // Fecha y hora actual
       };
 
-      // Llama al servicio para guardar el mensaje
-      this.ChatService.guardarMensaje(mensajeData).then(() => {
-        this.form.reset(); // Limpiar el formulario después de enviar
-      }).catch((error: any ) => {
-        console.error("Error al enviar el mensaje: ", error);
-      });
+      try {
+        // Enviar el mensaje a Firestore
+        await this.chatService.enviarMensaje(mensajeData);
+        console.log("mensaje guardado: " + this.nuevoMensaje + " ENVIADO POR: " + this.email);
+        this.nuevoMensaje = ''; // Limpiar el campo del mensaje
+      } catch (error) {
+        console.error('Error al enviar el mensaje:', error);
+      }
     }
   }
+
+  convertirTimestampAFecha(timestamp: any): Date {
+    return timestamp ? timestamp.toDate() : null; // Convierte el Timestamp a Date
+  }
+
 }

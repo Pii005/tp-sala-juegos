@@ -5,6 +5,7 @@ import { AhorcadoGameComponent } from './componentes/ahorcado-game/ahorcado-game
 import { MayormenorComponent } from './componentes/mayormenor/mayormenor.component';
 import { PreguntadosComponent } from './componentes/preguntados/preguntados.component';
 import { OrdenarNumerosComponent } from './componentes/ordenar-numeros/ordenar-numeros.component';
+import { ChatComponent } from './chat/chat.component';
 
 // Importa el módulo de autenticación
 import { AutenticacionModule } from './autenticacion/autenticacion.module';
@@ -16,8 +17,7 @@ export const routes: Routes = [
     { path: 'mayor-menor', component: MayormenorComponent },
     { path: 'preguntados', component: PreguntadosComponent },
     { path: 'ordenar', component: OrdenarNumerosComponent },
-    
-    // Cambia la ruta a 'auth' y luego el módulo se encargará de la ruta 'login'
+    {path: 'chat', component: ChatComponent},
     { 
         path: 'auth', 
         loadChildren: () => import('./autenticacion/autenticacion.module').then(m => m.AutenticacionModule)

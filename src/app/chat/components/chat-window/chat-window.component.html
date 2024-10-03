@@ -1,1 +1,24 @@
-<p>chat-window works!</p>
+<div class="chat-window">
+    <div class="chat-messages">
+        <div *ngFor="let mensaje of mensajes$ | async" class="message">
+            <strong>{{ mensaje.email }}</strong>: {{ mensaje.mensaje }} <br>
+            <span class="fecha">{{ convertirTimestampAFecha(mensaje.fechaEnvio) | date:'short' }}</span>       
+        </div>
+    </div>
+    
+    <!-- Formulario de ingreso de mensajes -->
+    <form (ngSubmit)="enviarMensaje()">
+    <div class="input-group mb-3">
+        <input 
+            type="text" 
+            class="form-control" 
+            placeholder="Escribe tu mensaje..." 
+            [(ngModel)]="nuevoMensaje" 
+            name="mensaje"
+            minlength="1"
+            maxlength="50"
+            required>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+    </div>
+    </form>
+</div>

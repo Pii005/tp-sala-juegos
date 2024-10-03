@@ -1,0 +1,50 @@
+.chat-window {
+border: 1px solid #ccc;
+padding: 10px;
+max-width: 600px;
+max-height: 800px;
+margin: 20px auto;
+display: flex;
+flex-direction: column;
+}
+
+.chat-messages {
+max-height: 400px; /* Ajusta según tu diseño */
+overflow-y: auto; /* Scroll vertical si es necesario */
+margin-bottom: 20px; /* Espacio entre mensajes y el input */
+background-color: #f9f9f9; /* Color de fondo */
+}
+
+.mensaje {
+margin-bottom: 20px; /* Espacio entre mensajes */
+padding: 5px; /* Espacio interno */
+border-radius: 5px; /* Bordes redondeados */
+background-color: #f1f1f1; /* Color de fondo del mensaje */
+}
+
+.fecha {
+font-size: 0.8em; /* Tamaño de fuente más pequeño para la fecha */
+color: #888; /* Color gris */
+}
+
+.input-message {
+display: flex;
+justify-content: space-between; /* Espacio entre input y botón */
+}
+
+input {
+flex: 1; /* Ocupa todo el espacio disponible */
+padding: 10px;
+border-radius: 5px;
+border: 1px solid #ccc;
+margin-right: 10px; /* Espacio entre el input y el botón */
+}
+
+button {
+padding: 10px 15px;
+border-radius: 5px;
+border: none;
+background-color: #007bff; /* Color del botón */
+color: white;
+cursor: pointer;
+}
