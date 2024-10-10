@@ -1,18 +1,16 @@
 import { TestBed } from '@angular/core/testing';
 
-import { UserCheckService } from './user-check.service';
+import { UserPointsService } from './user-points.service';
 
-describe('UserCheckService', () => {
-  let service: UserCheckService;
+describe('UserPointsService', () => {
+  let service: UserPointsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(UserCheckService);
+    service = TestBed.inject(UserPointsService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 });
-
-

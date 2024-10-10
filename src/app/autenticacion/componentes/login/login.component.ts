@@ -101,6 +101,7 @@ export class LoginComponent {
         // Si el usuario existe, verificamos la contraseña
         if (usuario.contrasenia === password) {
           localStorage.setItem('userEmail', email);
+          // this.updateLastLogin(email);
           this.router.navigate(['home'], { state: { email: email } });
         } else {
           // Contraseña incorrecta

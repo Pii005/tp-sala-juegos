@@ -23,21 +23,26 @@ export class ChatWindowComponent implements OnInit {
   }
 
   async enviarMensaje() {
-    if (this.nuevoMensaje.trim()) {
-      const mensajeData = {
-        email: this.email,
-        mensaje: this.nuevoMensaje,
-        fechaEnvio: Timestamp.fromDate(new Date()) // Fecha y hora actual
-      };
-
-      try {
-        // Enviar el mensaje a Firestore
-        await this.chatService.enviarMensaje(mensajeData);
-        console.log("mensaje guardado: " + this.nuevoMensaje + " ENVIADO POR: " + this.email);
-        this.nuevoMensaje = ''; // Limpiar el campo del mensaje
-      } catch (error) {
-        console.error('Error al enviar el mensaje:', error);
+    if(this.email)
+    {
+      if (this.nuevoMensaje.trim()) {
+        const mensajeData = {
+          email: this.email,
+          mensaje: this.nuevoMensaje,
+          fechaEnvio: Timestamp.fromDate(new Date()) // Fecha y hora actual
+        };
+  
+        try {
+          // Enviar el mensaje a Firestore
+          await this.chatService.enviarMensaje(mensajeData);
+          console.log("mensaje guardado: " + this.nuevoMensaje + " ENVIADO POR: " + this.email);
+          this.nuevoMensaje = ''; // Limpiar el campo del mensaje
+        } catch (error) {
+          console.error('Error al enviar el mensaje:', error);
+        }
       }
+    }else{
+      console.log("No esta registrado el usuario");
     }
   }
 

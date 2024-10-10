@@ -15,4 +15,8 @@ export class UserCheckService {
 
     return !snapshot.empty;
   }
+
+  
+
+
 }

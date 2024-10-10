@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from "@angular/forms";
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
@@ -24,7 +24,7 @@ import { UserCheckService } from '../../../services/user-check.service';
   styleUrls: ['./register.component.css'] 
 })
 
-export class RegisterComponent {
+export class RegisterComponent implements OnInit{
   form!: FormGroup;
   // email: string ="";
   // contrasenia: string="";
@@ -37,37 +37,30 @@ export class RegisterComponent {
   private sub!:Subscription;
   public loginsCollection:any[] = [];
 
-  constructor(private router: Router, public auth: Auth, private firestore: Firestore, private userCheckService: UserCheckService) {
-
-  }
+  constructor(private router: Router, public auth: Auth, private firestore: Firestore, private userCheckService: UserCheckService) {}
 
   goTo(path: string) {
     this.router.navigate([path]);
-    // Le pasamos el path de donde quiero ir, en este caso uso los nombre de los componentes 
   }
 
   ngOnInit(): void {
     this.form = new FormGroup({
       email: new FormControl('', 
-          [Validators.required, Validators.email],  // Validaciones sincrónicas
-          [this.emailExistsValidator.bind(this)]    // Validación asíncrona para email existente
+          [Validators.required, Validators.email],  
+          [this.emailExistsValidator.bind(this)]    
       ),
       contrasenia: new FormControl('', [Validators.required, Validators.minLength(6)])
     });
   }
 
   emailExistsValidator(control: AbstractControl): Promise<ValidationErrors | null> {
-    // Si el campo está vacío, no necesitamos hacer la verificación
     if (!control.value) {
       return Promise.resolve(null);
     }
   
-    // Llamamos al servicio para verificar si el usuario existe
     return this.userCheckService.checkIfUserExists(control.value).then(exists => {
-      // Devuelve error si el email ya existe
       return exists ? { emailExists: true } : null; 
     }).catch(() => {
-      // Manejo de errores en caso de que algo falle
       return null; 
     });
   }
@@ -75,14 +68,14 @@ export class RegisterComponent {
 
 
   enviarForm() {
-
-    this.msgError = ""; // Limpiar mensajes de error
+    console.log("Crandando datos")
+    this.msgError = ""; 
     if (this.form.valid) {
       // console.log(this.form.value);
       this.flagError = false;
       this.registarUsuario();
     } else {
-      this.msgError = this.getFormErrors() || "Formulario inválido"; // Mostrar errores específicos
+      this.msgError = this.getFormErrors() || "Formulario inválido"; 
       this.flagError = true;
     }
   }
@@ -98,7 +91,7 @@ export class RegisterComponent {
       } else if (emailErrors['email']) {
         return "Por favor, ingresa un email válido.";
       } else if (emailErrors['emailExists']) {
-        return "El email ya está en uso.";
+        return "El email ya está en uso ¿''''''";
       }
     }
 
@@ -115,9 +108,8 @@ export class RegisterComponent {
 
   registarUsuario() {
     const email = this.form.get('email')?.value;
-    const contrasenia = this.form.get('contrasenia')?.value; // Cambia 'contrasenia'
+    const contrasenia = this.form.get('contrasenia')?.value; 
   
-    // Verificamos si el formulario es válido antes de proceder
     if (!this.form.valid) {
       this.msgError = "El formulario no es válido.";
       this.flagError = true;
@@ -126,7 +118,7 @@ export class RegisterComponent {
   
     let col = collection(this.firestore, 'Usuarios');
     const observable = collectionData(col);
-  
+    console.log("Cargando...");
     this.sub = observable.subscribe((respuesta: any) => {
       this.loginsCollection = respuesta;
       const coincidencia = this.loginsCollection.filter(
@@ -134,13 +126,13 @@ export class RegisterComponent {
       );
   
       if (coincidencia.length > 0) {
-        this.msgError = "El usuario ya existe";
+        this.msgError = "El usuario ya existe ¿''''''";
         this.flagError = true;
         return;
       } else {
         this.flagError = false;
         console.log("Creando Usuario...");
-        this.crearUsuario(email, contrasenia); // Pasa los parámetros
+        this.crearUsuario(email, contrasenia); 
         
         this.sub.unsubscribe();
         return;
@@ -154,20 +146,27 @@ export class RegisterComponent {
       this.msgError = "Por favor, ingresa el email y la contraseña.";
       return;
     }
-  
-    const col = collection(this.firestore, 'Usuarios');
-  
-    addDoc(col, { user: email, contrasenia: contrasenia, fecha: new Date(), 'ultimo ingreso': new Date() })
+    createUserWithEmailAndPassword(this.auth, email, contrasenia)
       .then(() => {
-        // Guardar el email en localStorage tras crear el usuario
-        localStorage.setItem('userEmail', email);
+        const col = collection(this.firestore, 'Usuarios');
   
+        return addDoc(col, { 
+          user: email, 
+          contrasenia: contrasenia, 
+          fecha: new Date(), 
+          'ultimo ingreso': new Date() 
+        });
+      })
+      .then(() => {
+        localStorage.setItem('userEmail', email);
         console.log("Usuario creado y guardado en Firestore.");
+        
         // Redirigir al home
-        this.router.navigate(['home'], { state: { email: email } });
+        this.goTo('home');
       })
       .catch((error) => {
-        console.error("Error al crear el usuario en Firestore:", error);
+        console.error("Error al crear el usuario:", error);
+        this.msgError = "Error al crear el usuario: " + error.message;
       });
   }
   

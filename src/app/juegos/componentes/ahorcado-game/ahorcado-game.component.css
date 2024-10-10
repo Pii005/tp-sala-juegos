@@ -1,0 +1,94 @@
+.juego-container{
+    background-image: url('../../../../assets/home.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh; /* Ocupa toda la altura de la pantalla */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    padding-top: 0;
+}   
+
+
+.teclado {
+display: flex;
+flex-wrap: wrap;
+max-width: 600px;
+margin: 20px auto;
+gap: 10px;
+}
+
+.teclado button {
+padding: 10px 15px;
+font-size: 16px;
+border-radius: 5px;
+border: none;
+background-color: #056ddb;
+color: white;
+cursor: pointer;
+}
+
+.teclado button:hover {
+background-color: #0dafd8;
+}
+
+.pantalla-letras {
+color: white;
+text-align: center;
+margin-bottom: 20px;
+}
+
+.pantalla-letras p {
+font-size: 24px;
+font-weight: bold;
+}
+
+.btn {
+    padding: 12px;
+    background-color: #4079d5;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%; /* Ocupar todo el ancho */
+    margin-bottom: 10px; /* Espacio entre los botones */
+}
+.btn:hover {
+    background-color: #2f60ae;
+}
+.button-container {
+    display: flex; /* Alinear los botones uno al lado del otro */
+    justify-content: space-between; /* Espacio entre los botones */
+}
+
+.btn-regis {
+    width: 48%; /* Ajustar el ancho de los botones */
+    background-color: #759ad7;
+}
+
+.btn-regis{
+        padding: 10px;
+        width: 45%; /* Botón más pequeño */
+        background-color: #759ad7;
+        align-self: center; /* Centrar el botón */
+        border: none;
+        border-radius: 4px;
+        color: white;
+        cursor: pointer;
+        margin-left: 10px;
+        /* margin: 10px auto 0 auto; */
+        margin-right: 0;
+        margin-top: 10px;
+        /* margin-left: 10px;  */
+}
+
+.container {
+    background-color: rgb(59, 65, 133);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; 
+    max-width: 600px; 
+    display: flex;
+}
