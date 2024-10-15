@@ -11,8 +11,8 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active"  aria-current="page">Home</a>
-                    <!-- (click)="goTo('home') -->
+                    <a (click)="goTo('home')" class="nav-link active"  aria-current="page">Home</a>
+                    
                 </li>
             </ul>
 
@@ -20,10 +20,39 @@
             <div class="d-flex ms-auto nav-item"  role="search">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page">Puntos: </a>
+                        <a class="nav-link active" aria-current="page">Puntos: {{puntos}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Ronda: {{ronda}}</a>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </nav>
+
+
+
+<div class="juego-conteiner">
+    <div class="conteiner-carta">
+        <h3 [hidden]="ocultarAcciones">¿La siguiente carta es mayor o menor?</h3>
+        <img src={{imagen}} alt="imagen carta" with="300" height="350">
+    
+    </div>
+    <div class="conteiner-acciones" [hidden]="ocultarAcciones">
+        <!-- <button (click)="siguienteCarta()" class="btn btn-primary">Siguiente</button> -->
+        <button (click)="cartaMayor()"class="btn btn-primary">Mayor</button>
+        <button (click)="cartaMenor()" class="btn btn-primary">Menor</button>
+
+    </div>
+
+    <div class="conteiner-buttons" [hidden]="ocultarBotones">
+        <button (click)="goTo('home')" class="btn btn-primary">Salir</button>
+        <button (click)="reinicio()" class="btn btn-primary">Reiniciar</button>
+    </div>
+</div>
+<!-- gameOver() {
+    this.imagen = "assets/gameover.png";
+    this.ocultarAcciones = true;
+    this.ocultarBotones = false; 
+    } -->

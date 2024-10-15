@@ -23,7 +23,7 @@
             <!-- <div class="error-message" *ngIf="flagError">{{ msgError }}</div> -->
 
             <div class="button-container">
-                <button class="btn btn-regis" type="submit" type="button">Registrar</button>
+                <button (click)="enviarForm()" class="btn btn-regis" type="submit" type="button">Registrar</button>
                 <button (click)="goTo('auth/login')" class="btn btn-regis" type="button">Volver</button>
             </div>
         </form>

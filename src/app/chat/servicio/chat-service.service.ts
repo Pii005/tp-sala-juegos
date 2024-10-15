@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface Mensaje {
   email: string;
   mensaje: string;
-  fechaEnvio: Date; // Asegúrate de que el campo en Firestore coincida
+  fechaEnvio: Date; 
 }
 
 @Injectable({
@@ -23,7 +23,7 @@ export class ChatService {
 
   // Método para enviar un mensaje a la colección "chat"
   enviarMensaje(mensajeData: any) {
-    const chatCollection = collection(this.firestore, 'chat'); // No es necesario volver a definirlo, ya que ya lo tienes como propiedad
+    const chatCollection = collection(this.firestore, 'chat'); 
     return addDoc(chatCollection, mensajeData);
   }
 

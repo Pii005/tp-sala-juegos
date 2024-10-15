@@ -61,19 +61,19 @@ export class OrdenarNumerosComponent implements OnInit {
   niveles(){
     switch(this.conteoNiveles){
       case 1:
-        this.obtenerNumeros(1);
+        this.obtenerNumeros(5);
         break;
       case 2:
-        this.obtenerNumeros(1);
+        this.obtenerNumeros(10);
         break;
       case 3:
-        this.obtenerNumeros(1);
+        this.obtenerNumeros(15);
         break;
       case 4:
-        this.obtenerNumeros(2);
+        this.obtenerNumeros(20);
         break;
       case 5:
-        this.obtenerNumeros(2);
+        this.obtenerNumeros(25);
         break;
       default:
         this.winEndGame();

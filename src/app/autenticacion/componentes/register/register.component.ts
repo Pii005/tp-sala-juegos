@@ -2,12 +2,10 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from "@angular/forms";
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { addDoc, collection, collectionData, Firestore } from '@angular/fire/firestore';
+import { Auth, createUserWithEmailAndPassword } from '@angular/fire/auth'; // Solo importamos lo necesario para la autenticación
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserCheckService } from '../../../services/user-check.service';
-
 
 @Component({
   selector: 'app-register',
@@ -24,20 +22,16 @@ import { UserCheckService } from '../../../services/user-check.service';
   styleUrls: ['./register.component.css'] 
 })
 
-export class RegisterComponent implements OnInit{
+export class RegisterComponent implements OnInit {
   form!: FormGroup;
-  // email: string ="";
-  // contrasenia: string="";
-
   loggesUser:string = "";
   flagError: boolean= false;
   msgError: string = "";
 
   public countLogins:number = 0;
   private sub!:Subscription;
-  public loginsCollection:any[] = [];
 
-  constructor(private router: Router, public auth: Auth, private firestore: Firestore, private userCheckService: UserCheckService) {}
+  constructor(private router: Router, public auth: Auth, private userCheckService: UserCheckService) {}
 
   goTo(path: string) {
     this.router.navigate([path]);
@@ -64,14 +58,10 @@ export class RegisterComponent implements OnInit{
       return null; 
     });
   }
-  
-
 
   enviarForm() {
-    console.log("Crandando datos")
     this.msgError = ""; 
     if (this.form.valid) {
-      // console.log(this.form.value);
       this.flagError = false;
       this.registarUsuario();
     } else {
@@ -79,7 +69,6 @@ export class RegisterComponent implements OnInit{
       this.flagError = true;
     }
   }
-
 
   getFormErrors() {
     const emailErrors = this.email?.errors;
@@ -91,7 +80,7 @@ export class RegisterComponent implements OnInit{
       } else if (emailErrors['email']) {
         return "Por favor, ingresa un email válido.";
       } else if (emailErrors['emailExists']) {
-        return "El email ya está en uso ¿''''''";
+        return "El email ya está en uso.";
       }
     }
 
@@ -115,52 +104,21 @@ export class RegisterComponent implements OnInit{
       this.flagError = true;
       return;
     }
-  
-    let col = collection(this.firestore, 'Usuarios');
-    const observable = collectionData(col);
-    console.log("Cargando...");
-    this.sub = observable.subscribe((respuesta: any) => {
-      this.loginsCollection = respuesta;
-      const coincidencia = this.loginsCollection.filter(
-        (login: any) => login.user === email
-      );
-  
-      if (coincidencia.length > 0) {
-        this.msgError = "El usuario ya existe ¿''''''";
-        this.flagError = true;
-        return;
-      } else {
-        this.flagError = false;
-        console.log("Creando Usuario...");
-        this.crearUsuario(email, contrasenia); 
-        
-        this.sub.unsubscribe();
-        return;
-      }
-    });
+
+    this.crearUsuario(email, contrasenia);
   }
-  
 
   crearUsuario(email: string, contrasenia: string) {
     if (!email || !contrasenia) {
       this.msgError = "Por favor, ingresa el email y la contraseña.";
       return;
     }
+
     createUserWithEmailAndPassword(this.auth, email, contrasenia)
       .then(() => {
-        const col = collection(this.firestore, 'Usuarios');
-  
-        return addDoc(col, { 
-          user: email, 
-          contrasenia: contrasenia, 
-          fecha: new Date(), 
-          'ultimo ingreso': new Date() 
-        });
-      })
-      .then(() => {
         localStorage.setItem('userEmail', email);
-        console.log("Usuario creado y guardado en Firestore.");
-        
+        console.log("Usuario creado con Firebase Authentication.");
+
         // Redirigir al home
         this.goTo('home');
       })
@@ -169,7 +127,6 @@ export class RegisterComponent implements OnInit{
         this.msgError = "Error al crear el usuario: " + error.message;
       });
   }
-  
 
   get email() {
     return this.form.get('email');

@@ -1,0 +1,58 @@
+.form {
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-image: url('/../../assets/home.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column; /* Cambiado a columna para que los elementos se apilen */
+    justify-content: flex-start;
+    align-items: center;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Asegura que los elementos estén en columna */
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh; /* Ajusta según sea necesario */
+}
+
+.content-box {
+    background-color: #262626;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1000px;
+    text-align: center;
+}
+
+.radio-container {
+    margin-bottom: 20px;
+}
+
+.table-container {
+    margin-top: 20px;
+    width: 90%;
+    max-width: 1000px;
+}
+
+/* .table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th, .table td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+} */

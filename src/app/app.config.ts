@@ -6,11 +6,12 @@ import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
 import { getAuth, provideAuth } from '@angular/fire/auth';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { AppRoutingModule } from './app-routing.module'; // Asegúrate de tener la ruta correcta
+import { provideHttpClient } from '@angular/common/http';
 
 
 export const appConfig: ApplicationConfig = {
 
-  providers: [importProvidersFrom(AppRoutingModule),
+  providers: [importProvidersFrom(AppRoutingModule),provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideFirebaseApp(() => 
     initializeApp(
       {"projectId":"tp-sala-juegos-97955",

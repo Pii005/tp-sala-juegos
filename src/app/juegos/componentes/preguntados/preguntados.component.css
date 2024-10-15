@@ -1,0 +1,84 @@
+.conteiner-juego {
+    background-image: url('../../../../assets/home.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea los hijos horizontalmente al centro */
+    justify-content: center; /* Centra los hijos verticalmente */
+    padding: 0;
+}
+
+.conteiner-pais,
+.button-container {
+    text-align: center; /* Alinea el texto al centro */
+    margin-bottom: 20px; /* Añade espacio entre los contenedores */
+    width: 100%; /* Asegura que los elementos ocupen el ancho completo */
+    max-width: 600px; /* Limita el ancho máximo */
+}
+
+.conteiner-pais p {
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.conteiner-pais img {
+    display: block;
+    margin: 0 auto; /* Centra la imagen */
+}
+
+.conteiner-elecciones {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Alinea el contenido al centro horizontalmente */
+    justify-content: center; /* Centra el contenido verticalmente */
+    width: 100%;
+    margin: 20px auto; /* Añade margen arriba y abajo */
+}
+
+.conteiner-elecciones .btn-regis {
+    width: 100%; /* Ocupa todo el ancho dentro de las columnas */
+    padding: 15px; /* Aumenta el padding para hacer los botones más altos */
+    margin-bottom: 10px; /* Añade espacio entre los botones */
+}
+
+.button-container {
+    display: flex;
+    justify-content: center; /* Centra los botones horizontalmente */
+    gap: 20px; /* Espacio entre los botones */
+    width: 100%;
+    max-width: 600px; /* Limita el ancho máximo */
+    margin: 20px auto; /* Asegúrate de que se centre el contenedor de botones */
+}
+
+.button-container .btn-regis {
+    width: 48%; /* Ajusta el ancho de los botones en esta sección */
+    padding: 15px; /* Aumenta el padding para hacer los botones más altos */
+}
+
+.btn-regis {
+    background-color: #759ad7;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-regis:hover {
+    background-color: #2f60ae;
+}
+
+.contenedor {
+    background-color: rgb(59, 65, 133);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 80%; 
+    max-width: 600px; 
+    display: flex;
+    flex-direction: column; /* Asegúrate de que los elementos dentro de este contenedor estén en columna */
+    align-items: center; /* Centra el contenido horizontalmente */
+}

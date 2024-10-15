@@ -1,0 +1,53 @@
+.juego-conteiner {
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-image: url('/../../assets/home.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex; 
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    margin: 0;
+    gap: 20px;
+}
+
+.conteiner-carta, .conteiner-acciones, .conteiner-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.conteiner-acciones, .conteiner-buttons {
+    background-color: #759ad7; /* Fondo blanco para la "cajita" */
+    padding: 20px; /* Espacio interno */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil */
+    width: 100%;
+    max-width: 350px; /* Ancho máximo */
+}
+
+.conteiner-acciones{
+    flex-direction: row; 
+    gap: 10px;
+}
+
+.conteiner-buttons {
+    flex-direction: row; /* Alineación horizontal para los botones */
+    gap: 10px; /* Espacio entre los botones */
+}
+
+.conteiner-carta h3 {
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+button {
+    padding: 10px 20px;
+    width: 100px; /* Ajuste de ancho para los botones */
+    font-size: 16px;
+}

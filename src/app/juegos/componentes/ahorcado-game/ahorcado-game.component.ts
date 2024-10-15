@@ -32,6 +32,7 @@ export class AhorcadoGameComponent implements OnInit {
   intentos: number = 0;
   imagenes: string = "assets/1.png";
   finjuego: string = "";
+  
 
   constructor(private router: Router, private PalabraService : PalabrasService, private userPoints: UserPointsService) 
   {}
@@ -53,6 +54,7 @@ export class AhorcadoGameComponent implements OnInit {
   }
 
   generarLetras() {
+    this.letras = []; 
     for (let i = 65; i <= 90; i++) {
       this.letras.push(String.fromCharCode(i)); 
     }
@@ -75,11 +77,11 @@ export class AhorcadoGameComponent implements OnInit {
     }
     if(letraEncontrada){
       
-      this.puntos += 15;
+      // this.puntos += 5;
     }
     if (!letraEncontrada) {
       this.intentos += 1; 
-      this.puntos -= 5;
+      // this.puntos -= 5;
 
       // - PUNTOS => 5
 
@@ -101,6 +103,7 @@ export class AhorcadoGameComponent implements OnInit {
           this. imagenes = "assets/6.png";
           break
         case 6: 
+        this.puntos -= 5;
           this. imagenes = "assets/gameover.png";
           // this.ocultarBotones = true;//muestro botones
           
@@ -125,6 +128,7 @@ export class AhorcadoGameComponent implements OnInit {
   }
 
   win(){
+    this.puntos += 15;
     this.finjuego = "¡Felicidades! Has adivinado la palabra";
     this.imagenes = "assets/finjuego.png"
     this.ocultarTeclado = true;
@@ -141,6 +145,8 @@ export class AhorcadoGameComponent implements OnInit {
     this.intentos = 0;
     this.imagenes = "assets/1.png"; 
     this.letrasSeleccionadas = ''; 
+    // this.
+    this.generarLetras();
     this.ocultarTeclado = false; 
     this.ocultarBotones = true; 
     this.palabraReal = this.PalabraService.getPalabraAleatoria(); 
@@ -159,8 +165,6 @@ export class AhorcadoGameComponent implements OnInit {
     }).catch(error =>{
       console.log('error en guardar puntos');
     });
-
-
   }
 
   eliminarletras(letra: string){

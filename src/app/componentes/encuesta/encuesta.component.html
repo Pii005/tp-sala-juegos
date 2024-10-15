@@ -1,0 +1,116 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="assets/logoGame.png" alt="Logo mando" width="30" height="24">
+        </a>
+        <a class="navbar-brand" href="#">P1 Games</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" (click)="goTo('home')" aria-current="page">Home</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="formulario">
+    <div class="container">
+        <form [formGroup]="encuestaForm" (ngSubmit)="onSubmit()" class="row g-3 needs-validation content-box" novalidate>
+            <h3>Encuesta</h3>
+            <div class="col-md-15">
+                <div class="input-group">
+                    <span class="input-group-text">Nombre y apellido</span>
+                    <input type="text" formControlName="nombre" class="form-control" placeholder="Nombre" required>
+                    <input type="text" formControlName="apellido" class="form-control" placeholder="Apellido" required>
+                </div>
+                <div *ngIf="encuestaForm.get('nombre')?.invalid && encuestaForm.get('nombre')?.touched" class="invalid-feedback">
+                    El nombre es requerido.
+                </div>
+                <div *ngIf="encuestaForm.get('apellido')?.invalid && encuestaForm.get('apellido')?.touched" class="invalid-feedback">
+                    El apellido es requerido.
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Email</label>
+                <input type="email" formControlName="email" class="form-control" required>
+                <div *ngIf="encuestaForm.get('email')?.invalid && encuestaForm.get('email')?.touched" class="invalid-feedback">
+                    Por favor, ingresa un email válido.
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">Teléfono</label>
+                <input type="text" formControlName="telefono" class="form-control" required>
+                <div *ngIf="encuestaForm.get('telefono')?.invalid && encuestaForm.get('telefono')?.touched" class="invalid-feedback">
+                    El teléfono debe ser solo números y tener 10 caracteres.
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                <label class="form-label">Edad</label>
+                <input type="number" formControlName="edad" class="form-control" required>
+                <div *ngIf="encuestaForm.get('edad')?.invalid && encuestaForm.get('edad')?.touched" class="invalid-feedback">
+                    La edad debe estar entre 18 y 99.
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <label class="form-label">¿Te gustaron los juegos?</label>
+                <select class="form-select" formControlName="pregunta1" required>
+                    <option selected disabled value="">Elegir:</option>
+                    <option>Si todos</option>
+                    <option>Ninguno</option>
+                    <option>Algunos</option>
+                </select>
+                <div *ngIf="encuestaForm.get('pregunta1')?.invalid && encuestaForm.get('pregunta1')?.touched" class="invalid-feedback">
+                    Por favor, selecciona una opción.
+                </div>
+            </div>
+
+            <div class="col-md-8" id="preguntaDos">
+                <label class="form-label">¿Qué juegos probaste?</label>
+                <div class="input-group mb-3" *ngFor="let juego of ['ahorcado', 'mayorOMenor', 'preguntados', 'ordenarNumeros']">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="checkbox" [formControlName]="juego" />
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with checkbox" [placeholder]="juego" readonly />
+                </div>
+            </div>
+
+            <div class="col-md-15" id="preguntaTres">
+                <label class="form-label">¿Te gustó el juego Ordena Números?</label>
+                <div class="input-group">
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="radio" formControlName="pregunta3" value="si">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with radio button" value="Sí" readonly>
+
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="radio" formControlName="pregunta3" value="no">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with radio button" value="No" readonly>
+
+                    <div class="input-group-text">
+                        <input class="form-check-input mt-0" type="radio" formControlName="pregunta3" value="necesitaMejorar">
+                    </div>
+                    <input type="text" class="form-control" aria-label="Text input with radio button" value="Necesita Mejorar" readonly>
+                </div>
+                <div *ngIf="encuestaForm.get('pregunta3')?.invalid && encuestaForm.get('pregunta3')?.touched" class="invalid-feedback">
+                    Por favor, selecciona una opción.
+                </div>
+            </div>
+
+            <div class="col-12">
+                <button class="btn btn-primary" type="submit">Terminar</button>
+                <div *ngIf="!encuestaForm.valid && encuestaForm.touched" class="invalid-feedback d-block ms-3">
+                    Por favor, completa todos los campos requeridos.
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

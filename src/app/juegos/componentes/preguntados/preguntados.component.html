@@ -1,1 +1,53 @@
-<p>preguntados works!</p>
+<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark" data-bs-theme="dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">
+            <img src="assets/logoGame.png" alt="Logo mando" width="30" height="24">
+        </a>
+        <a class="navbar-brand" href="#">P1 Games</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" (click)="goTo('home')" aria-current="page">Home</a>
+                </li>
+            </ul>
+
+            <div class="d-flex ms-auto nav-item" role="search">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Puntos: {{puntos}}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page">Ronda: {{rondas}}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="conteiner-juego">
+    <div class="conteiner-pais">
+        <p [hidden]="ocultarBtn" >La opcion correcta era: {{paisCorrecto.name}}</p>
+        <img src="{{imagenBandera}}" alt="Imagen Pais" width="500" height="350"> 
+        <p [hidden]="ocultarelecciones">¿Qué país es?</p>
+    </div>
+    <div class="conteiner-elecciones" [hidden]="ocultarelecciones">
+        <div class="container text-center contenedor-buttons">
+            <div class="row">
+                <div class="col-6 col-sm-3" *ngFor="let opcion of opciones">
+                    <button class="btn btn-regis" (click)="seleccionarOpcion(opcion)">
+                        {{ opcion.name.common }}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="button-container contenedor" [hidden]="ocultarBtn">
+        <button (click)="goTo('home')" class="btn btn-regis">Salir</button>
+        <button (click)="reiniciar()" class="btn btn-regis">Reiniciar</button>
+    </div>
+</div>

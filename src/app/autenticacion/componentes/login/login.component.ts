@@ -1,14 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
-import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth';
-import { Firestore, collection, addDoc, doc, updateDoc, getDocs, query, where, collectionData } from '@angular/fire/firestore';
-import { Subscription } from 'rxjs';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Auth, signInWithEmailAndPassword } from '@angular/fire/auth'; // Importamos solo la función para autenticación
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { UserCheckService } from '../../../services/user-check.service';
-// import { AuthService } from './auth.service';
-
 
 @Component({
   standalone: true,
@@ -21,128 +16,78 @@ import { UserCheckService } from '../../../services/user-check.service';
     FormsModule,          
     ReactiveFormsModule
   ],
-    templateUrl: './login.component.html',
+  templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   form!: FormGroup;
-  newEmail: string ="";
-  newContrase: string="";
-
-  loggesUser:string = "";
   flagError: boolean= false;
   msgError: string = "";
 
-  public countLogins:number = 0;
-  private sub!:Subscription;
-  public loginsCollection:any[] = [];
-
-
-
-  constructor(private router: Router, public auth: Auth, private firestore: Firestore, private userCheckService: UserCheckService) {
-
-  }
+  constructor(private router: Router, public auth: Auth) {}
 
   ngOnInit(): void {
-    console.log("Ingresando...")
+    console.log("Ingresando...");
     this.form = new FormGroup({
-      email: new FormControl('', 
-        [Validators.required, Validators.email] // Validaciones sincrónicas
-      ),
+      email: new FormControl('', [Validators.required, Validators.email]),  // Validaciones básicas
       contra: new FormControl('', [Validators.required])
     });
   }
 
-
   goTo(path: string) {
-    this.router.navigate([path]);
-    // Le pasamos el path de donde quiero ir, en este caso uso los nombre de los componentes 
+    this.router.navigate([path]);  // Navegar a la ruta indicada
   }
 
   async enviarForm() {
-    this.flagError = false; // Resetear error al enviar el formulario
+    this.flagError = false;  // Resetear el estado de error
+
     if (this.form.valid) {
       const email = this.form.get('email')?.value;
       const password = this.form.get('contra')?.value;
 
-      // Verificar si el email existe
-      const userExists = await this.verifyUser(email);
-      if (userExists) {
-        // Intentar iniciar sesión
+      try {
+        // Autenticación con Firebase Authentication
         await this.loginUser(email, password);
-      } else {
-        this.msgError = "El usuario no existe."; // Mensaje de error si el usuario no existe
+      } catch (error: any) {
+        switch(error.code){
+          case "auth/invalid-email":
+            this.msgError = "El mail o contraseña incorrectas";
+            break;
+          case "auth/invalid-credential":
+            this.msgError = "El mail o contraseña incorrectas";
+            break
+          case "auth/too-many-requests":
+            this.msgError = "Se enviaron muchos solicitudos, espere un momento";
+            break;
+          default:
+            this.msgError = "Error, revisar los datos enviados" + error.code;
+          }
         this.flagError = true;
       }
     } else {
-      this.msgError = "Formulario inválido"; // Mensaje de error si el formulario es inválido
+      this.msgError = "Formulario inválido";  // Mostrar error si el formulario es inválido
       this.flagError = true;
     }
   }
 
-
-  async verifyUser(email: string): Promise<boolean> {
-    return await this.userCheckService.checkIfUserExists(email);
-  }
-
-
-  loginUser(email: string, password: string) {
-    let col = collection(this.firestore, 'Usuarios');
-    const observable = collectionData(col);
-  
-    this.sub = observable.subscribe((respuesta: any) => {
-      // Actualizamos nuestro array
-      this.loginsCollection = respuesta;
-  
-      // Aquí realizamos el filtrado una vez que los datos han sido cargados
-      const usuario = this.loginsCollection.find((login: any) => login.user === email);
-  
-      if (usuario) {
-        // Si el usuario existe, verificamos la contraseña
-        if (usuario.contrasenia === password) {
-          localStorage.setItem('userEmail', email);
-          // this.updateLastLogin(email);
-          this.router.navigate(['home'], { state: { email: email } });
-        } else {
-          // Contraseña incorrecta
-          this.msgError = "Contraseña incorrecta.";
-          this.flagError = true;
-        }
-      } else {
-        // Usuario no encontrado
-        this.msgError = "El usuario no existe";
-        this.flagError = true;
-      }
-    });
-  }
-  
-
-
-  async updateLastLogin(email: string) {
+  // Método para iniciar sesión con Firebase Authentication
+  async loginUser(email: string, password: string) {
     try {
-      // Referencia a la colección de usuarios
-      const col = collection(this.firestore, 'Usuarios');
-      
-      // Busca el documento del usuario basándose en su email
-      const userQuery = query(col, where('user', '==', email));
-      const querySnapshot = await getDocs(userQuery);
-      
-      if (!querySnapshot.empty) {
-        const userDoc = querySnapshot.docs[0]; // Asumiendo que el email es único
-        const userDocRef = doc(this.firestore, 'user', userDoc.id);
-        
-        // Actualiza el campo 'ultimaSesion' con la fecha actual
-        await updateDoc(userDocRef, { ultimaSesion: new Date() });
-        
-        console.log("Última fecha de sesión actualizada con éxito.");
-      } else {
-        console.log("Usuario no encontrado para actualizar la fecha.");
-      }
+      // Intentar iniciar sesión con Firebase Authentication
+      const userCredential = await signInWithEmailAndPassword(this.auth, email, password);
+      console.log("Usuario autenticado:", userCredential.user);
+
+      // Guardar el email del usuario en el almacenamiento local
+      localStorage.setItem('userEmail', email);
+
+      // Redirigir al home
+      this.goTo('home');
     } catch (error) {
-      console.error("Error al actualizar la fecha de la última sesión:", error);
+      throw error;  // Lanza el error para ser manejado por enviarForm
     }
   }
-  
+
+  // Getters para los controles de formulario
   get email() {
     return this.form.get('email');
   }
@@ -150,5 +95,4 @@ export class LoginComponent {
   get contra() {
     return this.form.get('contra');
   }
-
 }

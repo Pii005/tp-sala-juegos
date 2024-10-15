@@ -1,0 +1,54 @@
+.formulario {
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+    background-image: url('/../../assets/home.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.content-box {
+    background-color: white;
+    padding: 40px; /* Aumentar padding para hacer la caja más grande */
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Incrementar el ancho para que ocupe más espacio */
+    max-width: 1000px; /* Ajustar el máximo ancho para pantallas más grandes */
+}
+
+.text-section {
+    flex: 1;
+    padding-right: 30px; /* Aumentar el espacio entre el texto y la imagen */
+}
+
+.text-section h2 {
+    font-size: 28px; /* Aumentar el tamaño de los títulos */
+    margin-bottom: 15px;
+}
+
+.text-section p {
+    font-size: 18px; /* Aumentar el tamaño de los párrafos */
+    margin-bottom: 20px;
+}
+
+.image-section img {
+    width: 250px; /* Aumentar el tamaño de la imagen */
+    height: auto;
+    border-radius: 10px;
+    object-fit: cover;
+}
