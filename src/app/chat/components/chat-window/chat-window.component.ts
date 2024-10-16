@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, AfterViewChecked } from '@angular/core';
 import { Timestamp } from 'firebase/firestore';
 import { ChatService, Mensaje } from '../../servicio/chat-service.service';
 import { Observable, of } from 'rxjs';
@@ -8,10 +8,13 @@ import { Observable, of } from 'rxjs';
   templateUrl: './chat-window.component.html',
   styleUrls: ['./chat-window.component.css']
 })
-export class ChatWindowComponent implements OnInit {
+export class ChatWindowComponent implements OnInit, AfterViewChecked {
   nuevoMensaje: string = ''; // Mensaje que ingresa el usuario
   email: string = ''; // Email del usuario
   mensajes$: Observable<Mensaje[]> = of([]); // Observable para los mensajes
+
+  // Referencia al contenedor de mensajes
+  @ViewChild('chatMessages') private chatMessagesContainer?: ElementRef;
 
   constructor(private chatService: ChatService) {}
 
@@ -22,27 +25,30 @@ export class ChatWindowComponent implements OnInit {
     this.mensajes$ = this.chatService.obtenerMensajes(); // Asignar el observable
   }
 
+  ngAfterViewChecked() {
+    // Autoscroll después de que la vista ha sido actualizada
+    this.scrollToBottom();
+  }
+
   async enviarMensaje() {
-    if(this.email)
-    {
+    if (this.email) {
       if (this.nuevoMensaje.trim()) {
         const mensajeData = {
           email: this.email,
           mensaje: this.nuevoMensaje,
           fechaEnvio: Timestamp.fromDate(new Date()) // Fecha y hora actual
         };
-  
+
         try {
           // Enviar el mensaje a Firestore
           await this.chatService.enviarMensaje(mensajeData);
-          console.log("mensaje guardado: " + this.nuevoMensaje + " ENVIADO POR: " + this.email);
           this.nuevoMensaje = ''; // Limpiar el campo del mensaje
         } catch (error) {
           console.error('Error al enviar el mensaje:', error);
         }
       }
-    }else{
-      console.log("No esta registrado el usuario");
+    } else {
+      console.log("No está registrado el usuario");
     }
   }
 
@@ -50,4 +56,11 @@ export class ChatWindowComponent implements OnInit {
     return timestamp ? timestamp.toDate() : null; // Convierte el Timestamp a Date
   }
 
+  // Método para hacer scroll automático al final del contenedor de mensajes
+  private scrollToBottom(): void {
+    if (this.chatMessagesContainer) {
+      this.chatMessagesContainer.nativeElement.scrollTop = this.chatMessagesContainer.nativeElement.scrollHeight;
+    }
+  }
+  
 }

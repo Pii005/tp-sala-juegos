@@ -24,7 +24,7 @@ html, body {
 }
 
 .chat-box {
-    width: 60%;              /* Ancho del chat (ajústalo según lo que necesites) */
+    width: 50%;              /* Ancho del chat (ajústalo según lo que necesites) */
     height: 80vh;            /* Alto del chat */
     background-color: white;  /* Fondo del rectángulo */
     border-radius: 8px;       /* Bordes redondeados */
