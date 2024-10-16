@@ -14,6 +14,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 export class EncuestaComponent {
   encuestaForm!: FormGroup;
 
+  ocultarEnvio = true;
+
   constructor(private router: Router, private savedService: SavedService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -62,6 +64,8 @@ export class EncuestaComponent {
       try {
         await this.savedService.saveEncuesta(encuestaData);
         console.log('Encuesta guardada con éxito.');
+        this.ocultarEnvio = false;
+        
       } catch (error) {
         console.error('Error al guardar la encuesta:', error);
       }

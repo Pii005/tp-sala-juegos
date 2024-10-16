@@ -31,3 +31,16 @@
     width: 90%; /* Incrementar el ancho para que ocupe más espacio */
     max-width: 1000px; /* Ajustar el máximo ancho para pantallas más grandes */
 }
+
+.is-invalid {
+    border-color: #dc3545; /* Rojo para indicar error */
+}
+
+.invalid-feedback {
+    display: none;
+}
+
+input.ng-invalid.ng-touched ~ .invalid-feedback,
+select.ng-invalid.ng-touched ~ .invalid-feedback {
+    display: block; /* Mostrar feedback si el campo es inválido y ha sido tocado */
+}
