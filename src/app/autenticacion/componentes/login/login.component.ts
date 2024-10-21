@@ -70,6 +70,14 @@ export class LoginComponent {
     }
   }
 
+  autoComplet(){
+    this.form.patchValue({
+      email: 'admin@gmail.com',
+      contra: '147852'
+    });
+    this.loginUser("admin@gmail.com", "147852");
+  }
+
   // Método para iniciar sesión con Firebase Authentication
   async loginUser(email: string, password: string) {
     try {
